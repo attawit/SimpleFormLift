@@ -1,6 +1,7 @@
 <template>
   <b-container fluid>
     <!-- User Interface controls -->
+    <b-row ><input class="text-center" v-model="randomtime" type="number" placeholder="random second" block/> <b-button pill class="pb-2" size="sm" :to="`/${$route.params.id}/randomlist?timesecond=${randomtime}`"> Random </b-button> </b-row>
     <b-row>
       <b-col lg="3" class="my-1">
         <b-form-group
@@ -197,6 +198,7 @@ export default {
     return {
       //  _rowVariant: "success",
       //  _cellVariants: { age: "danger", isActive: "warning" },
+      randomtime : 300,
       registerList: [],
       fields: [
         {
@@ -312,17 +314,15 @@ export default {
         .then(() => {
           //this.refreshTable();
           this.$refs.edit.hide();
-          toast.fire({
-            type: "success",
+          this.$toast.fire({
             title: "Updated successfully",
           });
         });
     },
     deletePaticipant(doc) {
-      Swal.fire({
+      this.$Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
-        type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
@@ -345,8 +345,7 @@ export default {
             // console.log(doc.images[img])
           }
 
-          toast.fire({
-            type: "success",
+          this.$toast.fire({
             title: "Deleted successfully",
           });
         }

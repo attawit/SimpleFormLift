@@ -14,32 +14,39 @@
         </a>
       </nav>
     </div>
-    <div class="container pt-0 pb-0 ">
+    <div class="container pt-0 pb-0">
       <div class="row">
         <div class="col" cols="12">
           <div class="set-padding">
             <div class="text-center mt-10">
-              <img class="mx-auto" src="/img/welcome.png" alt="" width="236px" />
+              <img
+                class="mx-auto"
+                src="/img/welcome.png"
+                alt=""
+                width="236px"
+              />
               <h1 class="text-title">Welcome, {{ name }}</h1>
             </div>
-            <div class="col-12 mx-auto text-center ">
-               <b-button
-              class="text-center btn outlined primary m-4"
-              @click="edit"
-            >
-              Update
-               </b-button>
-            <b-button
-              class="text-center btn outlined secondary m-4"
-              variant="primary"
-              @click="close"
-            >
-              Close
-            </b-button> </div>
+            <div class="col-12 mx-auto text-center">
+              <b-button
+                class="text-center btn outlined primary m-4"
+                @click="edit"
+              >
+                Update
+              </b-button>
+              <b-button
+                class="text-center btn outlined secondary m-4"
+                variant="primary"
+                @click="close"
+              >
+                Close
+              </b-button>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <div id="devbottom"><p>Dev By: 0818085651</p></div>
   </div>
 </template>
 
@@ -49,11 +56,11 @@ export default {
     return {
       name: this.$store.state.currentuser.name,
       currentuser: this.$store.state.currentuser,
-      eventid : null,
+      eventid: null,
     };
   },
-  mounted(){
-    this.eventid = this.$route.params.id ; 
+  mounted() {
+    this.eventid = this.$route.params.id;
   },
   methods: {
     displayPicture() {
@@ -69,8 +76,9 @@ export default {
     },
     edit() {
       this.$router.push({
-        path: `/`,query:{edit:true}
-      })
+        path: `/`,
+        query: { edit: true },
+      });
     },
     close() {
       this.$liff.closeWindow();
@@ -78,3 +86,10 @@ export default {
   },
 };
 </script>
+<style scoped>
+#devbottom {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+</style>

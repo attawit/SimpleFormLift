@@ -11,7 +11,7 @@ import BootstrapVue from 'bootstrap-vue';
 Vue.use(BootstrapVue);
 
 
-window.Swal = Swal;
+Vue.prototype.$Swal  = Swal;
 const toast = Swal.mixin({
   toast: true,
   position: 'top-end',
@@ -19,7 +19,7 @@ const toast = Swal.mixin({
   timer: 3000
 });
 
-window.toast = toast;
+Vue.prototype.toast  = toast;
 
 
 Vue.config.productionTip = false;

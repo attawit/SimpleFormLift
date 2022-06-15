@@ -12,6 +12,9 @@ import HomePage from "../components/Home";
 // pacitipates
 import Paticipants from "../components/Paticipants";
 
+// random list
+import RandomList from "../components/RandomList";
+
 // account-register-done c
 import RegisterDone from "../components/RegisterDone";
 
@@ -55,6 +58,11 @@ export default new Router({
       path: "/:id/paticipants",
       name: "account-register-paticipants",
       component: Paticipants,
+    },
+    {
+      path: "/:id/randomlist",
+      name: "account-random-paticipants",
+      component: RandomList,
     },
     {
       path: "/:id/registerdone",
