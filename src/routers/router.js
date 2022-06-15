@@ -42,6 +42,11 @@ export default new Router({
       name: "home",
       component: HomePage,
     },
+    {
+      path: "/:id/event/:rnd",
+      name: "home",
+      component: HomePage,
+    },
     // privacy
     {
       path: "/privacy",

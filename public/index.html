@@ -1,53 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <meta name="Description" content="E Register">
-    <meta name="Description" content="JINN SOLUTION Co.,Ltd">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <title>Event Register</title>
-  
-    <!-- ios support -->
-    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
-    <!-- MDB -->
-    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.1.0/mdb.min.css" rel="stylesheet" /> -->
-  
-    <link rel="icon" type="image/png" sizes="512x512" href="./icons/android-chrome-512x512.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="./icons/android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./icons/favicon-16x16.png">
-    <!-- <link rel="manifest" href="./manifest.json"> -->
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-    <!-- ./ios support -->
-    <link
-    href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css"
-    rel="stylesheet"
-  />
-    <title>Vue App</title>
-  </head>
-  <body>
-    <noscript>
-      <strong
-        >We're sorry but Vue App doesn't work properly without JavaScript
-        enabled. Please enable it to continue.</strong
-      >
-    </noscript>
-    <div id="app"></div>
-    <script
-      charset="utf-8"
-      src="https://static.line-scdn.net/liff/edge/2/sdk.js"
-    ></script>
-    <!-- built files will be auto injected -->
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="Description" content="E Register">
+  <meta name="Description" content="JINN SOLUTION Co.,Ltd">
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <title>Event Register</title>
+
+  <!-- ios support -->
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+  <!-- MDB -->
+  <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.1.0/mdb.min.css" rel="stylesheet" /> -->
+
+  <link rel="icon" type="image/png" sizes="512x512" href="./icons/android-chrome-512x512.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./icons/favicon-16x16.png">
+  <!-- <link rel="manifest" href="./manifest.json"> -->
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+  <!-- ./ios support -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet" />
+  <title>Vue App</title>
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but Vue App doesn't work properly without JavaScript
+      enabled. Please enable it to continue.</strong>
+  </noscript>
+  <div id="app"></div>
+  <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <script>
+    liff.init(
+      {
+        liffId: "1657190795-wjy7dyl4", 
+      },
+      () => {
+        if (liff.isLoggedIn()) {
+          liff
+            .getProfile()
+            .then((profile) => {
+              const Id = profile.userId;
+              const displayName = profile.displayName;
+              const statusMessage = profile.statusMessage;
+              const pictureUrl = profile.pictureUrl;
+              const email = liff.getDecodedIDToken().email;
+              const iddeToken = liff.getDecodedIDToken();
+              console.log(email);
+              console.log(iddeToken); // print decoded id
+              const idToken = this.$liff.getIDToken();
+              console.log(idToken); // print raw idToken object
+              const currentuser = {
+                    id: Id,
+                    name: displayName,
+                    displayName: displayName,
+                    displayUrl: pictureUrl,
+                    email: email,
+                    company: "",
+                    telephone: "",
+                    provider: "line",
+                    timestamp: "",
+                    eventid: "",
+                    licenseId: "JEvent",
+                  };
+
+              window.localStorage.setItem(
+                "currentuser",
+                JSON.stringify(currentuser)
+              );
+            })
+            .catch((err) => console.error(err));
+        } else {
+          if (!liff.isLoggedIn()) {
+            this.$liff.login();
+          }
+        }
+      },
+      (err) => {
+        console.error(err.code, err.message);
+      }
+    );
+  </script>
+  <!-- built files will be auto injected -->
+</body>
+
 </html>

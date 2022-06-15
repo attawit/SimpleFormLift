@@ -1,6 +1,7 @@
 /* eslint-disable  indent,object-shorthand,object-property-newline */
 const orgId = "XEP2RV4hYOVY8ionwR1B";
-const licenseId = "Event";
+const eventId = "Cb9h5u7u0ZaL8ZYFu3r" ;
+const licenseId = "JEvent";
 const organization = "JEvent";
 const payments = [
   {
@@ -28,6 +29,7 @@ const payments = [
 
 export default {
   orgId: orgId,
+  eventId :eventId,
   licenseId: licenseId,
   organization: organization,
   payments: payments

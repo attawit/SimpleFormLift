@@ -4,6 +4,7 @@
       class="flex bg-white flex-no-shrink my-10 h-32 w-auto max-w-2xl rounded p-4 shadow-md hover:shadow-lg"
     >
       <div class="flex">
+        <div>{{ eventId }}</div>
         <img
           :src="displayPicture()"
           alt="Profile Picture"
@@ -14,9 +15,6 @@
           <span class="text-indigo-500 font-light">{{
             currentuser.displayName
           }}</span>
-          <span class="text-grey text-sm font-light">
-            {{ currentuser.name }}
-          </span>
           <span class="text-grey text-sm font-light">
             {{ currentuser.email }}
           </span>
@@ -73,12 +71,10 @@
             v-model="currentuser.telephone"
           />
           <div class="flex items-center">
-            <input
+            <b-button
               class="bg-blue-500 hover:bg-blue-700 text-white font-normal py-2 px-4 my-6 rounded w-48 tracking-wide"
-             
-              value="Submit"
               @click="updateStoreUser()"
-            />
+            > Submit </b-button>
           </div>
         </form>
       </div>
@@ -87,13 +83,14 @@
 </template>
 <script>
 //import { mapGetters, mapActions } from 'vuex';
+import {eventId } from "../configs/constant" ; 
 import moment from "moment";
 export default {
   name: "UpdateUser",
   data() {
     return {
       user: null,
-      eventid: null,
+      eventid: eventId,
       currentuser: {
         id: null,
         name: "",
@@ -105,15 +102,19 @@ export default {
         provider: "",
         isActive: false,
         timestamp: null,
-        eventid: "",
+        eventid:eventId,
       },
     };
   },
   created() {
+    if (this.$store.state.currentuser.id != ""){
+        this.currentuser = this.$store.state.currentuser ; 
+    }
     // this.$store.dispatch('getUser');
   },
   mounted() {
-    
+    /*
+    if (this.$store.state.currentuser.id =="" || this.$store.state.currentuser.id == null )
     this.$liff.init(
           {
             liffId: "1657190795-wjy7dyl4", //"1657190795-wjy7dyl4"
@@ -150,7 +151,7 @@ export default {
                           timestamp: moment(new Date()).format(
                             "YYYYMMDD_HH:MM"
                           ),
-                          eventid: this.eventId,
+                          eventid: eventId,
                           licenseId: "JEvent",
                         };
                   this.currentuser = currentuser;
@@ -159,23 +160,21 @@ export default {
                 .catch((err) => console.error(err));
             } else {
               if (!this.$liff.isLoggedIn()) {
-                this.$liff.login({
-                  redirectUri: `${this.$route.fullPath}?login_state=done`,
-                });
+                this.$liff.login({redirectUri: "https://jinnsolution.web.app/"});
               }
             }
           },
           (err) => {
             console.error(err.code, err.message);
           }
-        );
+        ); */
 
         
-    if (this.$store.state.currentuser != null )   {
+    if (this.$store.state.currentuser.id != "" )   {
       this.currentuser = this.$store.state.currentuser;
     } 
-    if (this.$store.state.currentuser != null && this.$route.query.edit == null) {
-      this.$router.push({ path: "/Cb9h5u7u0ZaL8ZYFu3rJ/registerdone" });
+    if (this.$store.state.currentuser.id != "" && this.$route.query.edit == null) {
+      this.$router.push({ path: `/${eventId}/registerdone` });
     }
 
     console.log(this.$route);
@@ -236,12 +235,12 @@ export default {
         this.currentuser.timestamp = moment(new Date()).format("YYYYMMDD_HHMM");
         this.$store.commit("updateCurrentUser", this.currentuser);
         this.$dbevents
-          .doc("Cb9h5u7u0ZaL8ZYFu3r")
+          .doc(eventId)
           .collection("registers")
           .doc(this.currentuser.id ? this.currentuser.id : rnd)
           .set(this.currentuser)
           .then(() => {
-            this.$router.push({ path: "/Cb9h5u7u0ZaL8ZYFu3r/registerdone" });
+            this.$router.push({ path: `/${eventId}/registerdone` });
           });
       }
     },

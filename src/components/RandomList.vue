@@ -4,6 +4,7 @@
     <img class="person_img mx-auto" :src="displayPhoto" alt="image" />
     <h2 style="padding-top: 10px">{{ name }}</h2>
     <h4>{{ company }}</h4>
+    <div class="mt-5 text-center"><h2>{{ countDownSec }} </h2> </div>
   </div>
 </template>
 
