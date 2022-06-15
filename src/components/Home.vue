@@ -17,13 +17,11 @@
 </template>
 
 <script>
-import User from './User.vue';
 import UpdateUser from './UpdateUser.vue';
 // helloss
 export default {
   name: 'Home',
   components: {
-    User,
     UpdateUser,
   },
 };

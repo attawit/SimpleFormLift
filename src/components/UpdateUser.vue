@@ -13,6 +13,9 @@
         <span class="text-indigo-500 font-light">{{
           currentuser.displayName
         }}</span>
+           <span class="text-grey text-sm font-light">
+          {{ currentuser.name }}
+        </span>
         <span class="text-grey text-sm font-light">
           {{ currentuser.email }}
         </span>
@@ -27,8 +30,8 @@
     <div class="flex mt-4 pt-4 border-t border-grey-light">
       <form
         @submit.prevent="updateUser(user)"
-        class="flex flex-col md:ml-8 w-full"
-        :key="key"
+        class="flex flex-col md:ml-2 w-full"
+
       >
         <label for="name" class="text-grey-darker font-light inline-block mb-0"
           >Name</label
@@ -59,7 +62,7 @@
             rounded
             py-2
             px-3
-            mb-6
+            mb-3
             text-grey-darkest
           "
           id="company"
@@ -77,7 +80,7 @@
             rounded
             py-2
             px-3
-            mb-6
+            mb-3
             text-grey-darkest
           "
           id="email"
@@ -85,7 +88,7 @@
           @input="updateLocalUser($event)"
         />
         <label for="insta" class="text-grey-darker font-light inline-block mb-0"
-          >Instagram</label
+          >Telephone</label
         >
         <input
           class="
@@ -95,6 +98,7 @@
             rounded
             py-2
             px-3
+            mb-3
             text-grey-darkest
           "
           id="telephone"
@@ -118,7 +122,7 @@
             type="submit"
             value="Submit"
           />
-          <a class="text-blue hover:underline ml-4" @click="key++">Reset</a>
+ 
         </div>
       </form>
     </div>
@@ -150,29 +154,84 @@ export default {
     // this.$store.dispatch('getUser');
   },
   mounted() {
-    // this.$liff
-    //   .init({
-    //     liffId: "1657190795-wjy7dyl4",
-    //   })
-    //   .then(() => {
-    //     if (this.$liff.isLoggedIn()) {
-    //       this.$liff.getProfile().then((profile) => {
-    //         this.$store.dispatch("setLine", profile);
-    //         this.isDone();
-    //       });
-    //     } else {
-    //       this.$liff.login();
-    //     }
-    //   });
-    if ( this.$store.state.currentuser != null)
-    this.currentuser =  this.$store.state.currentuser ;
+    /*
+    this.$liff.init(
+          {
+            liffId: "1657190795-wjy7dyl4", //"1657190795-wjy7dyl4"
+            withLoginOnExternalBrowser: true,
+          },
+          () => {
+            if (this.$liff.isLoggedIn()) {
+              this.$liff
+                .getProfile()
+                .then((profile) => {
+                  const Id = profile.userId;
+                  const displayName = profile.displayName;
+                  const statusMessage = profile.statusMessage;
+                  const pictureUrl = profile.pictureUrl;
+                  const email = this.$liff.getDecodedIDToken().email;
+                  const iddeToken = this.$liff.getDecodedIDToken();
+                  console.log(email);
+                  console.log(iddeToken); // print decoded id
+                  const idToken = this.$liff.getIDToken();
+                  console.log(idToken); // print raw idToken object
+                  const currentuser =
+                    this.$store.state.currentuser.email != "" &&
+                    this.$store.state.currentuser.email != "undefined "
+                      ? this.$store.state.currentuser
+                      : {
+                          id: Id,
+                          name: displayName,
+                          displayName: displayName,
+                          displayUrl: pictureUrl,
+                          email: email,
+                          company: "",
+                          telephone: "",
+                          provider: "line",
+                          timestamp: moment(new Date()).format(
+                            "YYYYMMDD_HH:MM"
+                          ),
+                          eventid: this.eventId,
+                          licenseId: "JEvent",
+                        };
+                  this.currentuser = currentuser;
+                  this.$store.commit("updateCurrentUser", currentuser);
+                })
+                .catch((err) => console.error(err));
+            } else {
+              if (!this.$liff.isLoggedIn()) {
+                this.$liff.login({
+                  redirectUri: `${this.$route.fullPath}?login_state=done`,
+                });
+              }
+            }
+          },
+          (err) => {
+            console.error(err.code, err.message);
+          }
+        );
+
+        */
+    if ( this.$store.state.currentuser != null) {
+      this.currentuser =  this.$store.state.currentuser ;
+    }
+    if (this.currentuser.email != "" && this.$router.query.edit != null){
+      this.$router.push({path:"/Cb9h5u7u0ZaL8ZYFu3rJ/registerdone"});
+    }
+    console.log(this.$route);
   },
   computed: {
     // ...mapGetters(['activeUser']),
   },
   methods: {
-    updateUser(){
-
+    rndStr(len) {
+      let text = "";
+      let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      for (let i = 0; i < len; i++) {
+        text += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      let ondate = moment(new Date()).format("YYYYMMDD_HH:MM");
+      return ondate + text;
     },
     displayPicture() {
       if (
@@ -183,6 +242,43 @@ export default {
         return this.currentuser.displayUrl;
       } else {
         return "https://jinnsolution.web.app/avatar.png";
+      }
+    },
+    validate() {
+      let validated = true;
+      const errors = [];
+      const validateField = ["name", "email", "telephone", "company"];
+
+      validateField.forEach((field) => {
+        if (this.currentuser[field] == "") {
+          validated = false;
+          errors.push(`${field} can not be null`);
+        }
+      });
+      if (!validated) {
+        Swal.fire({
+          position: "buttom-end",
+          type: "error",
+          title: "error",
+          text: errors.map((error) => error + "<br/>").join(""),
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+      return validated;
+    },
+    updateStoreUser() {
+      //const rnd = this.currentuser.id ?? this.rndStr(3);
+      const rnd = this.rndStr(3);
+      if (this.validate() && this.currentuser.id != null) {
+        this.currentuser.timestamp = moment(new Date()).format("YYYYMMDD_HHMM");
+        this.$store.commit("updateCurrentUser", this.currentuser);
+        this.$dbevents
+          .doc(this.eventId)
+          .collection("registers")
+          .doc(this.currentuser.id ? this.currentuser.id : rnd)
+          .set(this.currentuser);
+        this.$router.push(`/${i18n.locale}/acc/${this.eventId}/registerdone`);
       }
     },
   },

@@ -41,23 +41,23 @@ export default new Router({
     },
     // privacy
     {
-      path: "privacy",
+      path: "/privacy",
       name: "privacy",
       component: Privacy,
     },
     // privacy
     {
-      path: "policy",
+      path: "/policy",
       name: "policy",
       component: Policy,
     },
     {
-      path: "paticipants",
+      path: "/:id/paticipants",
       name: "account-register-paticipants",
       component: Paticipants,
     },
     {
-      path: "registerdone",
+      path: "/:id/registerdone",
       name: "account-register-done",
       component: RegisterDone,
     },

@@ -201,25 +201,25 @@ export default {
       fields: [
         {
           key: "name",
-          label: this.$t("modal.tabs.register.name"),
+          label: "name",
           sortable: true,
           sortDirection: "desc",
         },
         {
           key: "email",
-          label: this.$t("modal.tabs.register.email"),
+          label: "email",
           sortable: true,
           sortDirection: "desc",
         },
         {
           key: "company",
-          label: this.$t("modal.tabs.register.company"),
+          label: "company",
           sortable: true,
           sortDirection: "desc",
         },
         {
           key: "telephone",
-          label: this.$t("modal.tabs.register.telephone"),
+          label: "telephone",
           sortable: true,
           sortDirection: "desc",
         },
