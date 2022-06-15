@@ -191,6 +191,7 @@
 </template>
 
 <script>
+import { fbAuth } from "../configs/firebase";
 export default {
   data() {
     return {

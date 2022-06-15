@@ -21,17 +21,12 @@
 </template>
 
 <script>
-import { mdbContainer, mdbRow, mdbCol, mdbIcon } from "mdbvue";
 export default {
   name: "policy",
   props: {
     msg: String,
   },
   components: {
-    mdbContainer,
-    mdbRow,
-    mdbCol,
-    mdbIcon,
   },
 };
 </script>

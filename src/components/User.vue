@@ -1,28 +1,18 @@
 <template>
   <div
-    class="
-      flex
-      bg-white
-      flex-no-shrink
-      my-10
-      h-32
-      w-auto
-      max-w-2xl
-      rounded
-      p-4
-      shadow-md
-      hover:shadow-lg
-    "
+    class="flex bg-white flex-no-shrink my-10 h-32 w-auto max-w-2xl rounded p-4 shadow-md hover:shadow-lg"
   >
-    <div v-if="activeUser" class="flex">
+    <div class="flex">
       <img
-        :src="currentuser.displayUrl"
+        :src="displayPicture()"
         alt="Profile Picture"
         class="w-24 h-24 rounded-full p-1"
       />
       <div class="flex flex-col px-6 w-64">
         <span class="text-xl font-light">{{ currentuser.name }}</span>
-        <span class="text-indigo-500 font-light">{{ currentuser.displayName }}</span>
+        <span class="text-indigo-500 font-light">{{
+          currentuser.displayName
+        }}</span>
         <span class="text-grey text-sm font-light">
           {{ currentuser.email }}
         </span>
@@ -35,16 +25,28 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+//import { mapGetters } from 'vuex';
 export default {
-  name: 'User',
-  date(){
+  name: "User",
+  data () {
     return {
-    currentuser : this.$store.state.currentuser  
+      currentuser:{
+        id: null,
+        name: "",
+        displayName: "",
+        displayUrl: "",
+        email: "",
+        telephone: "",
+        company: "",
+        provider: "",
+        isActive: false,
+        timestamp: null,
+        eventid: "",
+      },
     }
   },
   created() {
-    this.$store.dispatch('getUser');
+    // this.$store.dispatch('getUser');
   },
   mounted() {
     // this.$liff
@@ -61,9 +63,24 @@ export default {
     //       this.$liff.login();
     //     }
     //   });
+    if ( this.$store.state.currentuser != null)
+    this.currentuser =  this.$store.state.currentuser ;
   },
   computed: {
-    ...mapGetters(['activeUser']),
+    // ...mapGetters(['activeUser']),
+  },
+  methods: {
+    displayPicture() {
+      if (
+        this.currentuser != null &&
+        this.currentuser.displayUrl != null &&
+        this.currentuser.displayUrl != ""
+      ) {
+        return this.currentuser.displayUrl;
+      } else {
+        return "https://jinnsolution.web.app/avatar.png";
+      }
+    },
   },
 };
 </script>

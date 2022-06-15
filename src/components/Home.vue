@@ -12,7 +12,7 @@
       items-center
     "
   >
-    <User /> <UpdateUser />
+<UpdateUser />
   </main>
 </template>
 
