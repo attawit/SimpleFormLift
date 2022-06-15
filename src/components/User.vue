@@ -16,18 +16,18 @@
   >
     <div v-if="activeUser" class="flex">
       <img
-        :src="activeUser.profile_img"
+        :src="currentuser.displayUrl"
         alt="Profile Picture"
         class="w-24 h-24 rounded-full p-1"
       />
       <div class="flex flex-col px-6 w-64">
-        <span class="text-xl font-light">{{ activeUser.name }}</span>
-        <span class="text-indigo-500 font-light">{{ activeUser.role }}</span>
+        <span class="text-xl font-light">{{ currentuser.name }}</span>
+        <span class="text-indigo-500 font-light">{{ currentuser.displayName }}</span>
         <span class="text-grey text-sm font-light">
-          {{ activeUser.email }}
+          {{ currentuser.email }}
         </span>
         <span class="text-grey text-sm font-light mb-2">
-          {{ activeUser.insta }}
+          {{ currentuser.telephone }}
         </span>
       </div>
     </div>
@@ -38,6 +38,11 @@
 import { mapGetters } from 'vuex';
 export default {
   name: 'User',
+  date(){
+    return {
+    currentuser : this.$store.state.currentuser  
+    }
+  },
   created() {
     this.$store.dispatch('getUser');
   },
